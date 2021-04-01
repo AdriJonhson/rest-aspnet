@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithAspNET.Models;
-using RestWithAspNET.Services.Implemetations;
+using RestWithAspNET.Services;
 
 namespace RestWithASPNet.Controllers
 {
