@@ -5,7 +5,7 @@ using RestWithAspNET.Models;
 using RestWithAspNET.Models.Context;
 using RestWithAspNET.Services.Implemetations;
 
-namespace RestWithAspNET.Services
+namespace RestWithAspNET.Services.Implemetations
 {
     public class PersonService : IPersonService
     {

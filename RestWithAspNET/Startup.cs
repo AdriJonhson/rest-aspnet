@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestWithAspNET.Models.Context;
 using RestWithAspNET.Services;
+using RestWithAspNET.Services.Implemetations;
 
 namespace RestWithAspNET
 {
