@@ -1,0 +1,1 @@
+insert into peoples (first_name, last_name, gender, address) values ('Teste', 'da Silva', 'Male', 'Rua Java');
