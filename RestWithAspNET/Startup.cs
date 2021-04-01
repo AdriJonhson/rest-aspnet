@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RestWithAspNET.Services;
+using RestWithAspNET.Services.Implemetations;
 
 namespace RestWithAspNET
 {
@@ -27,6 +29,9 @@ namespace RestWithAspNET
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Dependency Injection
+            services.AddScoped<IPersonService, PersonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
