@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using RestWithAspNET.Models;
 using RestWithAspNET.Models.Context;
-using RestWithAspNET.Services.Implemetations;
 
-namespace RestWithAspNET.Services.Implemetations
+namespace RestWithAspNET.Repositories.Implemetations
 {
-    public class PersonService : IPersonService
+    public class PersonRepository : IPersonRepository
     {
         private MySQLContext _context;
         
-        public PersonService(MySQLContext context)
+        public PersonRepository(MySQLContext context)
         {
             _context = context;
         }
@@ -34,7 +33,7 @@ namespace RestWithAspNET.Services.Implemetations
 
         public Person Update(Person person)
         {
-            if (!CheckExists(person.Id)) return null;
+            if (!Exists(person.Id)) return null;
 
             try
             {
@@ -78,7 +77,7 @@ namespace RestWithAspNET.Services.Implemetations
             return _context.Peoples.ToList();
         }
 
-        private bool CheckExists(long id)
+        public bool Exists(long id)
         {
             return _context.Peoples.Any(p => p.Id.Equals(id));
         }
