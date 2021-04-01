@@ -30,7 +30,7 @@ namespace RestWithASPNet.Controllers
         {
             Person person = _personService.FindById(id);
 
-            if (person == null) return NotFound("Person Not Found!");
+            if (person == null) return NotFound();
 
             return Ok(person);
         }
@@ -46,8 +46,13 @@ namespace RestWithASPNet.Controllers
         public IActionResult Update(long id, [FromBody] Person person)
         {
             if (person == null) return BadRequest();
+
             person.Id = id;
-            return Ok(_personService.Create(person));
+            person = _personService.Update(person);
+            
+            if (person == null) return NotFound();
+            
+            return Ok(person);
         }
         
         [HttpDelete("{id}")]
