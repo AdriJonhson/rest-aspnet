@@ -1,41 +1,41 @@
 using System.Collections.Generic;
 using RestWithAspNET.Models;
-using RestWithAspNET.Repositories;
+using RestWithAspNET.Repositories.Generic;
 
 namespace RestWithAspNET.Business.Implemetations
 {
     public class PersonBusiness : IPersonBusiness
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IRepository<Person> _repository;
         
-        public PersonBusiness(IPersonRepository personRepository)
+        public PersonBusiness(IRepository<Person> repository)
         {
-            _personRepository = personRepository;
+            _repository = repository;
         }
 
         public Person Create(Person person)
         {
-            return _personRepository.Create(person);
+            return _repository.Create(person);
         }
 
         public Person Update(Person person)
         {
-            return _personRepository.Update(person);
+            return _repository.Update(person);
         }
 
         public void Delete(long id)
         {
-            _personRepository.Delete(id);
+            _repository.Delete(id);
         }
 
         public Person FindById(long id)
         {
-            return _personRepository.FindById(id);
+            return _repository.FindById(id);
         }
 
         public List<Person> FindAll()
         {
-            return _personRepository.FindAll();
+            return _repository.FindAll();
         }
     }
 }

@@ -1,54 +1,57 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RestWithAspNET.Models;
+using Microsoft.EntityFrameworkCore;
+using RestWithAspNET.Models.Base;
 using RestWithAspNET.Models.Context;
+using RestWithAspNET.Repositories.Generic;
 
 namespace RestWithAspNET.Repositories.Implemetations
 {
-    public class PersonRepository : IPersonRepository
+    public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly MySQLContext _context;
-        
-        public PersonRepository(MySQLContext context)
+
+        private DbSet<T> dataset;
+
+        public GenericRepository(MySQLContext context)
         {
             _context = context;
+            dataset = context.Set<T>();
         }
 
-        public Person Create(Person person)
+        public T Create(T data)
         {
             try
             {
-                _context.Add(person);
+                dataset.Add(data);
                 _context.SaveChanges();
+                
+                return data;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-            
-            return person;
         }
 
-        public Person Update(Person person)
+        public T Update(T data)
         {
-            if (!Exists(person.Id)) return null;
-
             try
             {
-                var result = FindById(person.Id);
+                var result = FindById(data.Id);
 
-                _context.Entry(result).CurrentValues.SetValues(person);
+                _context.Entry(result).CurrentValues.SetValues(data);
                 _context.SaveChanges();
+                
+                return result;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-            
-            return person;
         }
 
         public void Delete(long id)
@@ -57,8 +60,11 @@ namespace RestWithAspNET.Repositories.Implemetations
             {
                 var result = FindById(id);
 
-                _context.Peoples.Remove(result);
-                _context.SaveChanges();
+                if (result != null)
+                {
+                    dataset.Remove(result);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -67,19 +73,19 @@ namespace RestWithAspNET.Repositories.Implemetations
             }
         }
 
-        public Person FindById(long id)
+        public T FindById(long id)
         {
-            return _context.Peoples.SingleOrDefault(p => p.Id.Equals(id));
+            return dataset.SingleOrDefault(p => p.Id.Equals(id));
         }
 
-        public List<Person> FindAll()
+        public List<T> FindAll()
         {
-            return _context.Peoples.ToList();
+            return dataset.ToList();
         }
 
         public bool Exists(long id)
         {
-            return _context.Peoples.Any(p => p.Id.Equals(id));
+            return dataset.Any(p => p.Id.Equals(id));
         }
     }
 }

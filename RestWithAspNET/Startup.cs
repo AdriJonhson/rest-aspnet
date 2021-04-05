@@ -10,6 +10,7 @@ using RestWithAspNET.Business;
 using RestWithAspNET.Business.Implemetations;
 using RestWithAspNET.Models.Context;
 using RestWithAspNET.Repositories;
+using RestWithAspNET.Repositories.Generic;
 using RestWithAspNET.Repositories.Implemetations;
 using Serilog;
 
@@ -49,10 +50,9 @@ namespace RestWithAspNET
             
             // Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusiness>();
-            services.AddScoped<IPersonRepository, PersonRepository>();
-            
             services.AddScoped<IBookBusiness, BookBusiness>();
-            services.AddScoped<IBookRepository, BookRepository>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

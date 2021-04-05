@@ -1,41 +1,42 @@
 using System.Collections.Generic;
 using RestWithAspNET.Models;
 using RestWithAspNET.Repositories;
+using RestWithAspNET.Repositories.Generic;
 
 namespace RestWithAspNET.Business.Implemetations
 {
     public class BookBusiness : IBookBusiness
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IRepository<Book> _repository;
         
-        public BookBusiness(IBookRepository bookRepository)
+        public BookBusiness(IRepository<Book> repository)
         {
-            _bookRepository = bookRepository;
+            _repository = repository;
         }
 
         public Book Create(Book book)
         {
-            return _bookRepository.Create(book);
+            return _repository.Create(book);
         }
 
         public Book Update(Book book)
         {
-            return _bookRepository.Update(book);
+            return _repository.Update(book);
         }
 
         public void Delete(long id)
         {
-            _bookRepository.Delete(id);
+            _repository.Delete(id);
         }
 
         public Book FindById(long id)
         {
-            return _bookRepository.FindById(id);
+            return _repository.FindById(id);
         }
 
         public List<Book> FindAll()
         {
-            return _bookRepository.FindAll();
+            return _repository.FindAll();
         }
     }
 }

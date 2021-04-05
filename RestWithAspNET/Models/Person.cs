@@ -1,13 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using RestWithAspNET.Models.Base;
 
 namespace RestWithAspNET.Models
 {
     [Table("peoples")]
-    public class Person
+    public class Person : BaseEntity
     {
-        [Column("id")]
-        public long Id { get; set; }
-        
         [Column("first_name")]
         public string FirstName { get; set; }
         
