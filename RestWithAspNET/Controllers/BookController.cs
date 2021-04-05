@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithAspNET.Business;
+using RestWithAspNET.Data.VO;
 using RestWithAspNET.Models;
 
 namespace RestWithASPNet.Controllers
@@ -29,7 +30,7 @@ namespace RestWithASPNet.Controllers
         [HttpGet("{id}")]
         public IActionResult FindById(long id)
         {
-            Book book = _bookBusiness.FindById(id);
+            BookVO book = _bookBusiness.FindById(id);
 
             if (book == null) return NotFound();
 
@@ -37,14 +38,14 @@ namespace RestWithASPNet.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Book book)
+        public IActionResult Create([FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
             return Ok(_bookBusiness.Create(book));
         }
         
         [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] Book book)
+        public IActionResult Update(long id, [FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
 

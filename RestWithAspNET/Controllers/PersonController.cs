@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithAspNET.Business;
-using RestWithAspNET.Models;
+using RestWithAspNET.Data.VO;
 
 namespace RestWithASPNet.Controllers
 {
@@ -29,7 +29,7 @@ namespace RestWithASPNet.Controllers
         [HttpGet("{id}")]
         public IActionResult FindById(long id)
         {
-            Person person = _personBusiness.FindById(id);
+            PersonVO person = _personBusiness.FindById(id);
 
             if (person == null) return NotFound();
 
@@ -37,14 +37,14 @@ namespace RestWithASPNet.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Person person)
+        public IActionResult Create([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
             return Ok(_personBusiness.Create(person));
         }
         
         [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] Person person)
+        public IActionResult Update(long id, [FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
 
