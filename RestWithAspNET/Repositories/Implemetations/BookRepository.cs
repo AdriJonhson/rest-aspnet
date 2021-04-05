@@ -6,20 +6,19 @@ using RestWithAspNET.Models.Context;
 
 namespace RestWithAspNET.Repositories.Implemetations
 {
-    public class PersonRepository : IPersonRepository
-    {
+    public class BookRepository : IBookRepository    {
         private readonly MySQLContext _context;
         
-        public PersonRepository(MySQLContext context)
+        public BookRepository(MySQLContext context)
         {
             _context = context;
         }
 
-        public Person Create(Person person)
+        public Book Create(Book book)
         {
             try
             {
-                _context.Add(person);
+                _context.Add(book);
                 _context.SaveChanges();
             }
             catch (Exception e)
@@ -28,18 +27,18 @@ namespace RestWithAspNET.Repositories.Implemetations
                 throw;
             }
             
-            return person;
+            return book;
         }
 
-        public Person Update(Person person)
+        public Book Update(Book book)
         {
-            if (!Exists(person.Id)) return null;
+            if (!Exists(book.Id)) return null;
 
             try
             {
-                var result = FindById(person.Id);
+                var result = FindById(book.Id);
 
-                _context.Entry(result).CurrentValues.SetValues(person);
+                _context.Entry(result).CurrentValues.SetValues(book);
                 _context.SaveChanges();
             }
             catch (Exception e)
@@ -48,7 +47,7 @@ namespace RestWithAspNET.Repositories.Implemetations
                 throw;
             }
             
-            return person;
+            return book;
         }
 
         public void Delete(long id)
@@ -57,7 +56,7 @@ namespace RestWithAspNET.Repositories.Implemetations
             {
                 var result = FindById(id);
 
-                _context.Peoples.Remove(result);
+                _context.Books.Remove(result);
                 _context.SaveChanges();
             }
             catch (Exception e)
@@ -67,19 +66,19 @@ namespace RestWithAspNET.Repositories.Implemetations
             }
         }
 
-        public Person FindById(long id)
+        public Book FindById(long id)
         {
-            return _context.Peoples.SingleOrDefault(p => p.Id.Equals(id));
+            return _context.Books.SingleOrDefault(p => p.Id.Equals(id));
         }
 
-        public List<Person> FindAll()
+        public List<Book> FindAll()
         {
-            return _context.Peoples.ToList();
+            return _context.Books.ToList();
         }
 
         public bool Exists(long id)
         {
-            return _context.Peoples.Any(p => p.Id.Equals(id));
+            return _context.Books.Any(p => p.Id.Equals(id));
         }
     }
 }
