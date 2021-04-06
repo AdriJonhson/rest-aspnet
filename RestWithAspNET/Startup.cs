@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using RestWithAspNET.Business;
 using RestWithAspNET.Business.Implemetations;
+using RestWithAspNET.Hypermedia.Enricher;
+using RestWithAspNET.Hypermedia.Filters;
 using RestWithAspNET.Models.Context;
 using RestWithAspNET.Repositories;
 using RestWithAspNET.Repositories.Generic;
@@ -55,6 +57,11 @@ namespace RestWithAspNET
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
             }).AddXmlSerializerFormatters();
 
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnrichers.Add(new PersonEnricher());
+
+            services.AddSingleton(filterOptions);
+
             services.AddApiVersioning();
 
             // Dependency Injection
@@ -78,7 +85,9 @@ namespace RestWithAspNET
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=value}/{id?}");
+            });
         }
 
         private void MigrateDatabase(string connectionString)

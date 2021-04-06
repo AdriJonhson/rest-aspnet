@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RestWithAspNET.Business;
 using RestWithAspNET.Data.VO;
+using RestWithAspNET.Hypermedia.Filters;
 
 namespace RestWithASPNet.Controllers
 {
@@ -21,12 +22,14 @@ namespace RestWithASPNet.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult FindAll()
         {
             return Ok(_personBusiness.FindAll());
         }   
         
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult FindById(long id)
         {
             PersonVO person = _personBusiness.FindById(id);
@@ -37,6 +40,7 @@ namespace RestWithASPNet.Controllers
         }
         
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Create([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
@@ -44,6 +48,7 @@ namespace RestWithASPNet.Controllers
         }
         
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Update(long id, [FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
