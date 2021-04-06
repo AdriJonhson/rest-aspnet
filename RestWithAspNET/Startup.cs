@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
 using RestWithAspNET.Business;
 using RestWithAspNET.Business.Implemetations;
 using RestWithAspNET.Hypermedia.Enricher;
@@ -64,6 +66,21 @@ namespace RestWithAspNET
 
             services.AddApiVersioning();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Rest Asp.NET",
+                    Version = "v1",
+                    Description = "Rest ASP.Net",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Adri",
+                        Url = new Uri("https://github.com/AdriJonhson/rest-aspnet")
+                    }
+                });
+            });
+
             // Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusiness>();
             services.AddScoped<IBookBusiness, BookBusiness>();
@@ -82,6 +99,17 @@ namespace RestWithAspNET
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rest with ASP.Net");
+            });
+
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+
+            app.UseRewriter(option);
 
             app.UseAuthorization();
 

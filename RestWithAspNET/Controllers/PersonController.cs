@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithAspNET.Business;
 using RestWithAspNET.Data.VO;
@@ -23,6 +24,7 @@ namespace RestWithASPNet.Controllers
 
         [HttpGet]
         [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(200, Type = typeof(List<PersonVO>))]
         public IActionResult FindAll()
         {
             return Ok(_personBusiness.FindAll());
