@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithAspNET.Business;
@@ -41,6 +42,19 @@ namespace RestWithASPNet.Controllers
             if (token == null) return Unauthorized();
 
             return Ok(token);
+        }
+        
+        [HttpGet]
+        [Route("revoke")]
+        [Authorize("Bearer")]
+        public IActionResult Revoke()
+        {
+            var userName = User.Identity.Name;
+            var result = _loginBusiness.RevokeToken(userName);
+            
+            if (!result) return BadRequest("Invalid Client Request");
+
+            return NoContent();
         }
     }
 }

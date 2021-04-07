@@ -88,5 +88,10 @@ namespace RestWithAspNET.Business.Implemetations
                 refreshToken
             );
         }
+
+        public bool RevokeToken(string username)
+        {
+            return _repository.RevokeToken(username);
+        }
     }
 }
