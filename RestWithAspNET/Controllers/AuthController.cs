@@ -30,5 +30,17 @@ namespace RestWithASPNet.Controllers
             return Ok(token);
         }
         
+        [HttpPost]
+        [Route("refresh")]
+        public IActionResult Refresh([FromBody] TokenVO tokenData)
+        {
+            if (tokenData == null) return BadRequest("Invalid token data");
+
+            var token = _loginBusiness.ValidateCredentials(tokenData);
+
+            if (token == null) return Unauthorized();
+
+            return Ok(token);
+        }
     }
 }

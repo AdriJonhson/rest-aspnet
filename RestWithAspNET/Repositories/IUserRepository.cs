@@ -7,6 +7,8 @@ namespace RestWithAspNET.Repositories
     {
         User ValidateCredentials(UserVO user);
 
+        User ValidateCredentials(string username);
+
         User RefreshUserInfo(User user);
     }
 }
