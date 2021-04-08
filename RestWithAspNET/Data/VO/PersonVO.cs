@@ -22,6 +22,9 @@ namespace RestWithAspNET.Data.VO
         [JsonPropertyName("gender")]
         public string Gender { get; set; }
 
+        [JsonPropertyName("enabled")]
+        public bool Enabled { get; set; }
+
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

@@ -71,5 +71,16 @@ namespace RestWithASPNet.Controllers
             _personBusiness.Delete(id);
             return NoContent();
         }
+        
+        [HttpPatch("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Disable(long id)
+        {
+            PersonVO person = _personBusiness.Disable(id);
+
+            if (person == null) return NotFound();
+
+            return Ok(person);
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace RestWithAspNET.Business
         void Delete(long id);
         PersonVO FindById(long id);
         List<PersonVO> FindAll();
+
+        PersonVO Disable(long id);
     }
 }
