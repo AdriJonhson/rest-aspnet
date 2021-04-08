@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using RestWithAspNET.Models;
 using RestWithAspNET.Models.Context;
 
@@ -32,6 +34,32 @@ namespace RestWithAspNET.Repositories.Implemetations
             }
 
             return user;
+        }
+
+        public List<Person> FindByName(string firstName, string lastName)
+        {
+            List<Person> persons = new List<Person>();
+            
+            
+            if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
+            {
+                persons =  _context.Peoples
+                    .Where(p => p.FirstName.Contains(firstName) && p.LastName.Contains(lastName))
+                    .ToList();    
+            }
+            else if (!string.IsNullOrWhiteSpace(firstName)) {
+                persons =  _context.Peoples
+                    .Where(p => p.FirstName.Contains(firstName))
+                    .ToList();    
+            }
+            else if (!string.IsNullOrWhiteSpace(lastName))
+            {
+                persons =  _context.Peoples
+                    .Where(p => p.LastName.Contains(lastName))
+                    .ToList();    
+            }
+
+            return persons;
         }
     }
 }

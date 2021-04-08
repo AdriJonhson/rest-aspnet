@@ -30,8 +30,16 @@ namespace RestWithASPNet.Controllers
         public IActionResult FindAll()
         {
             return Ok(_personBusiness.FindAll());
-        }   
-        
+        }
+
+        [HttpGet("filter")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(200, Type = typeof(List<PersonVO>))]
+        public IActionResult FindByName([FromQuery] string firstName, [FromQuery] string lastName)
+        {
+            return Ok(_personBusiness.FindByName(firstName, lastName));
+        }
+
         [HttpGet("{id}")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult FindById(long id)

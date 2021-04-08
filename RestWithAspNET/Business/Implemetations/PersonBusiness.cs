@@ -48,6 +48,11 @@ namespace RestWithAspNET.Business.Implemetations
             return _personConverter.Parse(_repository.FindAll());
         }
 
+        public List<PersonVO> FindByName(string firstName, string lastName)
+        {
+            return _personConverter.Parse(_repository.FindByName(firstName, lastName));
+        }
+
         public PersonVO Disable(long id)
         {
             return _personConverter.Parse(_repository.Disable(id));
