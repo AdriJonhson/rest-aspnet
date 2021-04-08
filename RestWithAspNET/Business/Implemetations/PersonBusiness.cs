@@ -57,5 +57,33 @@ namespace RestWithAspNET.Business.Implemetations
         {
             return _personConverter.Parse(_repository.Disable(id));
         }
+
+        public PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int pageSize, int currentPage)
+        {
+            var sort = (!string.IsNullOrWhiteSpace(sortDirection) && !sortDirection.Equals("desc")) ? "asc" : "desc";
+            var offset = currentPage > 0 ? (currentPage - 1) * pageSize : 0;
+            var size = (pageSize < 1) ? 10 : pageSize;
+
+            string query = @"SELECT * FROM peoples p WHERE 1 = 1";
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                query += $" and p.first_name like '%{name}%' ";
+            }
+
+            query += $" order by p.first_name {sort} limit {size} offset {offset}";
+
+            var peoples = _repository.FindAllWithPageSearch(query);
+            var totalResults = peoples.Count;
+
+            return new PagedSearchVO<PersonVO>
+            {
+                CurrentPage = currentPage,
+                List = _personConverter.Parse(peoples),
+                PageSize = size,
+                SortDirections = sort,
+                TotalResults = totalResults
+            };
+        }
     }
 }

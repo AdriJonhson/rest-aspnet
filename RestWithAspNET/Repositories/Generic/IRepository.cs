@@ -10,6 +10,9 @@ namespace RestWithAspNET.Repositories.Generic
         void Delete(long id);
         T FindById(long id);
         List<T> FindAll();
+        List<T> FindAllWithPageSearch(string query);
+        int GetCount(string query);
+        
         bool Exists(long id);
     }
 }

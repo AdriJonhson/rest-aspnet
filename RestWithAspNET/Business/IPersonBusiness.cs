@@ -12,7 +12,7 @@ namespace RestWithAspNET.Business
         PersonVO FindById(long id);
         List<PersonVO> FindAll();
         List<PersonVO> FindByName(string firstName, string lastName);
-
         PersonVO Disable(long id);
+        PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int pageSize, int currentPage);
     }
 }
