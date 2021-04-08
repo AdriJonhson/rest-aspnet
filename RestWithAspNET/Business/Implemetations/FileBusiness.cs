@@ -48,9 +48,16 @@ namespace RestWithAspNET.Business.Implemetations
             return fileDetailVo;
         }
 
-        public List<FileDetailVO> SaveFilesToDisk(IList<IFormFile> files)
+        public async Task<List<FileDetailVO>> SaveFilesToDisk(IList<IFormFile> files)
         {
-            throw new System.NotImplementedException();
+            List<FileDetailVO> list = new List<FileDetailVO>();
+
+            foreach (var file in files)
+            {
+                list.Add(await SaveFileToDisk(file));
+            }
+
+            return list;
         }
     }
 }

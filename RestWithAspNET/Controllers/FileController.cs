@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,15 @@ namespace RestWithASPNet.Controllers
             FileDetailVO detail = await _fileBusiness.SaveFileToDisk(file);
 
             return new ObjectResult(detail);
+        }
+        
+        [HttpPost("uploadManyFiles")]
+        [Authorize("Bearer")]
+        public async Task<IActionResult> UploadManyFile([FromForm] List<IFormFile> files)
+        {
+            List<FileDetailVO> details = await _fileBusiness.SaveFilesToDisk(files);
+
+            return new ObjectResult(details);
         }
     }
 }
