@@ -18,7 +18,8 @@ namespace RestWithAspNET.Data.Converter.Implementations
                 FirstName = input.FirstName,
                 LastName = input.LastName,
                 Address = input.Address,
-                Gender = input.Gender
+                Gender = input.Gender,
+                Enabled = input.Enabled
             };
         }
 
@@ -37,7 +38,8 @@ namespace RestWithAspNET.Data.Converter.Implementations
                 FirstName = input.FirstName,
                 LastName = input.LastName,
                 Address = input.Address,
-                Gender = input.Gender
+                Gender = input.Gender,
+                Enabled = input.Enabled
             };
         }
 
