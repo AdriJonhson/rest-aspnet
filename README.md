@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/AdriJonhson/rest-aspnet.svg?branch=main)](https://travis-ci.org/AdriJonhson/rest-aspnet)
