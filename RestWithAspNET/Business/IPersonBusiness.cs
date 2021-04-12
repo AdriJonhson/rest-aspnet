@@ -11,6 +11,7 @@ namespace RestWithAspNET.Business
         void Delete(long id);
         PersonVO FindById(long id);
         List<PersonVO> FindAll();
+        List<PersonVO> FindAllTwo();
         List<PersonVO> FindByName(string firstName, string lastName);
         PersonVO Disable(long id);
         PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int pageSize, int currentPage);

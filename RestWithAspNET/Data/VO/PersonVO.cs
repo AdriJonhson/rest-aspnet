@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using RestWithAspNET.Hypermedia;
 using RestWithAspNET.Hypermedia.Abstract;
@@ -10,6 +11,7 @@ namespace RestWithAspNET.Data.VO
         [JsonPropertyName("id")]
         public long Id { get; set; }
 
+        [Required]
         [JsonPropertyName("first_name")]
         public string FirstName { get; set; }
         

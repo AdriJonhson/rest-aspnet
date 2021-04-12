@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dapper;
+using MySql.Data.MySqlClient;
 using RestWithAspNET.Models;
 using RestWithAspNET.Models.Context;
 
@@ -60,6 +62,17 @@ namespace RestWithAspNET.Repositories.Implemetations
             }
 
             return persons;
+        }
+
+        public List<Person> FindAllNew()
+        {
+            IEnumerable<Person> peoples;
+            using (var connection = new MySqlConnection("Server=db;Database=rest_with_asp_net;Uid=root;Pwd=docker;SslMode=none"))
+            {
+                peoples = connection.Query<Person>(@"SELECT * FROM peoples");
+            }
+
+            return peoples.ToList();
         }
     }
 }

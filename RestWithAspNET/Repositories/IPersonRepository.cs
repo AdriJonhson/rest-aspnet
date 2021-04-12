@@ -9,5 +9,7 @@ namespace RestWithAspNET.Repositories
     {
         Person Disable(long id);
         List<Person> FindByName(string firstName, string lastName);
+
+        List<Person> FindAllNew();
     }
 }

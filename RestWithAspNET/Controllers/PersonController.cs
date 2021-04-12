@@ -31,6 +31,14 @@ namespace RestWithASPNet.Controllers
         {
             return Ok(_personBusiness.FindAll());
         }
+        
+        [HttpGet("all/findAllNew")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(200, Type = typeof(List<PersonVO>))]
+        public IActionResult FindAllNew()
+        {
+            return Ok(_personBusiness.FindAll());
+        }
 
         [HttpGet("filter")]
         [TypeFilter(typeof(HyperMediaFilter))]
