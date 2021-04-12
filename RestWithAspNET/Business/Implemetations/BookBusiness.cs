@@ -4,16 +4,17 @@ using RestWithAspNET.Data.VO;
 using RestWithAspNET.Models;
 using RestWithAspNET.Repositories;
 using RestWithAspNET.Repositories.Generic;
+using RestWithAspNET.Repositories.Implemetations;
 
 namespace RestWithAspNET.Business.Implemetations
 {
     public class BookBusiness : IBookBusiness
     {
-        private readonly IRepository<Book> _repository;
+        private readonly IBookRepository _repository;
 
         private readonly BookConverter _bookConverter;
         
-        public BookBusiness(IRepository<Book> repository)
+        public BookBusiness(IBookRepository repository)
         {
             _repository = repository;
             _bookConverter = new BookConverter();

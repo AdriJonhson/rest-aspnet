@@ -1,4 +1,5 @@
 using System;
+using RestWithAspNET.Models;
 
 namespace RestWithAspNET.Data.VO
 {
@@ -8,6 +9,9 @@ namespace RestWithAspNET.Data.VO
         public string Title { get; set; }
         public string Author { get; set; }
         public double Price { get; set; }
-        public DateTime LaunchDate { get; set; }        
+
+        public CategoryVO Category { get; set; }
+        
+        public DateTime LaunchDate { get; set; }
     }
 }

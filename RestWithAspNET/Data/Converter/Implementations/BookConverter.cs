@@ -8,6 +8,13 @@ namespace RestWithAspNET.Data.Converter.Implementations
 {
     public class BookConverter : IParse<BookVO, Book>, IParse<Book, BookVO>
     {
+        private readonly CategoryConverter _categoryConverter;
+
+        public BookConverter()
+        {
+            _categoryConverter = new CategoryConverter();
+        }
+
         public Book Parse(BookVO input)
         {
             if (input == null) return null;
@@ -37,7 +44,8 @@ namespace RestWithAspNET.Data.Converter.Implementations
                 Title = input.Title,
                 Author = input.Author,
                 LaunchDate = input.LaunchDate,
-                Price = input.Price
+                Price = input.Price,
+                Category = _categoryConverter.Parse(input.Category)
             };
         }
 

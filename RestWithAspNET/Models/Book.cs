@@ -16,7 +16,12 @@ namespace RestWithAspNET.Models
         [Column("price")]
         public double Price { get; set; }
         
+        [Column("category_id")]
+        [ForeignKey("Category")]
+        public long? CategoryId { get; set; }
+        public Category Category { get; set; }
+
         [Column("launch_date")]
-        public DateTime LaunchDate { get; set; }        
+        public DateTime LaunchDate { get; set; }
     }
 }

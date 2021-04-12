@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using RestWithAspNET.Models;
 using RestWithAspNET.Models.Context;

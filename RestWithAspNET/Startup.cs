@@ -94,10 +94,10 @@ namespace RestWithAspNET
             var connection = Configuration["MysqlConnection:MysqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
 
-            // if (Environment.IsDevelopment())
-            // {
-            //     MigrateDatabase(connection);
-            // }
+            if (Environment.IsDevelopment())
+            {
+                MigrateDatabase(connection);
+            }
 
             services.AddMvc(options =>
             {
@@ -128,6 +128,7 @@ namespace RestWithAspNET
                 });
             });
 
+            
             // Dependency Injection
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
@@ -140,6 +141,7 @@ namespace RestWithAspNET
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
